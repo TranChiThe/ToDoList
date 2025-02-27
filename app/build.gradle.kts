@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("io.objectbox")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -40,7 +43,12 @@ android {
 }
 
 dependencies {
-
+    kapt("io.objectbox:objectbox-processor:4.1.0")
+    implementation("io.objectbox:objectbox-android:4.1.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-compiler:2.44")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -58,3 +66,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 }
+//apply(plugin = "io.objectbox")

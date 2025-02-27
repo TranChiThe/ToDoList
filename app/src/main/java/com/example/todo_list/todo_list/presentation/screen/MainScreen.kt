@@ -19,11 +19,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.todo_list.todo_list.domain.repository.TaskRepository
 import com.example.todo_list.todo_list.presentation.navigation.NavItem
+import com.example.todo_list.todo_list.presentation.viewmodel.TaskViewModel
 
 
 @Composable
-fun MainScreen (modifier: Modifier = Modifier) {
+fun MainScreen (modifier: Modifier = Modifier, repository:TaskRepository) {
     val NavItemList = listOf(
         NavItem("Home", Icons.Default.Home),
         NavItem("Calendar", Icons.Default.DateRange),
@@ -34,6 +37,9 @@ fun MainScreen (modifier: Modifier = Modifier) {
     var selectedIndex by remember {
         mutableIntStateOf(0)
     }
+    val viewModel: TaskViewModel = viewModel(
+        factory = TaskViewModel.factory(repository) // Sử dụng factory từ companion object
+    )
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -60,14 +66,14 @@ fun MainScreen (modifier: Modifier = Modifier) {
             }
         }
     ) { innerPadding ->
-        ContentScreen(modifier = Modifier.padding(innerPadding), selectedIndex)
+        ContentScreen(modifier = Modifier.padding(innerPadding), selectedIndex, repository=repository)
     }
 }
 
 @Composable
-fun ContentScreen (modifier: Modifier = Modifier, selectedIndex: Int) {
+fun ContentScreen (modifier: Modifier = Modifier, selectedIndex: Int, repository: TaskRepository) {
     when(selectedIndex){
-        0 -> HomePage()
+        0 -> HomeScreen(modifier,repository)
         1 -> CalendarPage()
         2 -> SearchPage()
         3 -> FolderPage()

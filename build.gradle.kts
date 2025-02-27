@@ -4,3 +4,15 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
 }
+buildscript {
+    repositories {
+        google()
+        mavenCentral() // ObjectBox nằm trên MavenCentral
+    }
+    dependencies {
+        classpath("io.objectbox:objectbox-gradle-plugin:4.1.0") // Thêm plugin ObjectBox
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.44")
+    }
+}
+
+

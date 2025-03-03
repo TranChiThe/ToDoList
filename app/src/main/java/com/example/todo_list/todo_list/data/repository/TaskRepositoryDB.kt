@@ -5,7 +5,7 @@ import com.example.todo_list.todo_list.domain.repository.TaskRepository
 import io.objectbox.Box
 import io.objectbox.BoxStore
 
-class TaskRepositoryDB (private val boxStore: BoxStore) : TaskRepository {
+class   TaskRepositoryDB (private val boxStore: BoxStore) : TaskRepository {
     private val taskBox: Box<Task> = boxStore.boxFor(Task::class.java)
 
     override fun addTask(task: Task) {
@@ -17,7 +17,7 @@ class TaskRepositoryDB (private val boxStore: BoxStore) : TaskRepository {
     }
 
     override fun updateTask(task: Task) {
-        TODO("Not yet implemented")
+        taskBox.put(task)
     }
 
     override fun deleteTask(task: Task) {

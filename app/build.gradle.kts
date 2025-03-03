@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("io.objectbox")
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -43,12 +43,25 @@ android {
 }
 
 dependencies {
+    // ObjectBox
     kapt("io.objectbox:objectbox-processor:4.1.0")
     implementation("io.objectbox:objectbox-android:4.1.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-compiler:2.44")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation("androidx.hilt:hilt-work:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation ("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+
+    // Jetpack Compose
+    implementation ("androidx.compose.material3:material3:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+    implementation ("androidx.work:work-runtime-ktx:2.7.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -66,4 +79,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 }
-//apply(plugin = "io.objectbox")
